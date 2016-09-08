@@ -1,0 +1,87 @@
+#!/bin/bash
+# petit programme
+
+while true; do
+# trie les fichier en ordre alphabetique
+if test -d $1
+then
+echo ""
+echo " Les fichiers sont: "
+echo ""
+ls
+else
+exit
+fi
+
+
+# choix du fichier
+
+echo ""
+echo "inserez le nom du fichier a traiter"
+read Nomdufichier
+
+
+#test si fichier
+
+if test -f $Nomdufichier 
+then
+VTestFichier="0"
+else 
+VTestFichier="1"
+fi
+
+# interface
+
+echo ""
+echo "Que voulez vous faire avec $Nomdufichier ?"
+echo "copier un fichier, appuyez sur c ou C"
+echo "Deplacer un fichier, appuyez sur d ou D"
+echo "Effacer un fichier, appuyez sur e ou E"
+echo "Quitter un fichier, appuyez sur q ou Q"
+
+#Lecture dune touche
+
+read -n 1 touche
+
+
+#Gestion dune touche
+
+case $touche in
+
+[eE]*)
+echo ""
+rm $Nomdufichier
+echo "$Nomdufichier EFFACER"
+echo "";;
+
+[cC]*) 
+echo ""
+echo "Copier vers quel dossier?"
+read NomNVDossier
+echo ""
+cp -R $Nomdufichier $NomNVDossier
+echo "Copie effectuer vers $NomNVDossier"
+;;
+
+[dD]*)
+echo ""
+echo "Deplacer vers quel dossier?"
+read NomNVDossier
+echo ""
+mv $Nomdufichier $NomNVDossier
+echo "Deplacement effectuer vers $NomNVDossier"
+;;
+
+[qQ]*)
+exit
+;;
+
+esac
+
+
+done
+
+
+
+
+
